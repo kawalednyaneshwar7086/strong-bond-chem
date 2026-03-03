@@ -55,7 +55,10 @@ const Navbar = () => {
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-white/80 backdrop-blur-xl shadow-2xl py-4' : 'bg-transparent py-8'}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <div className="flex items-center gap-4 group cursor-pointer">
+        <div 
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="flex items-center gap-4 group cursor-pointer"
+        >
           <div className="relative">
             <img 
               src="https://res.cloudinary.com/dxcb0ihjo/image/upload/v1772392398/WhatsApp_Image_2026-03-01_at_6.25.33_PM_aw8e9t.jpg" 
@@ -82,7 +85,10 @@ const Navbar = () => {
               <span className="absolute -bottom-2 left-0 w-0 h-[2px] bg-brand-orange transition-all duration-300 group-hover:w-full" />
             </a>
           ))}
-          <button className="bg-brand-navy text-white px-8 py-3 rounded-full text-xs uppercase tracking-widest font-bold hover:bg-brand-orange transition-all duration-500 shadow-xl shadow-brand-navy/10">
+          <button 
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            className="bg-brand-navy text-white px-8 py-3 rounded-full text-xs uppercase tracking-widest font-bold hover:bg-brand-orange transition-all duration-500 shadow-xl shadow-brand-navy/10"
+          >
             Get Quote
           </button>
         </div>
@@ -111,7 +117,10 @@ const Navbar = () => {
                   {item}
                 </a>
               ))}
-              <button className="w-full bg-brand-orange text-white py-5 rounded-2xl font-bold text-lg shadow-xl shadow-brand-orange/20">
+              <button 
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                className="w-full bg-brand-orange text-white py-5 rounded-2xl font-bold text-lg shadow-xl shadow-brand-orange/20"
+              >
                 Get Quote
               </button>
             </div>
@@ -158,7 +167,10 @@ const Hero = () => {
               Explore Catalog 
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </a>
-            <button className="text-brand-navy font-bold flex items-center gap-2 hover:text-brand-orange transition-colors group">
+            <button 
+              onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+              className="text-brand-navy font-bold flex items-center gap-2 hover:text-brand-orange transition-colors group"
+            >
               Our Vision
               <div className="w-0 group-hover:w-8 h-[2px] bg-brand-orange transition-all duration-500" />
             </button>
@@ -420,7 +432,13 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
               </div>
             </div>
 
-            <button className="w-full mt-10 bg-brand-orange text-white py-4 rounded-xl font-bold hover:bg-brand-orange/90 transition-all shadow-lg shadow-brand-orange/20">
+            <button 
+              onClick={() => {
+                onClose();
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="w-full mt-10 bg-brand-orange text-white py-4 rounded-xl font-bold hover:bg-brand-orange/90 transition-all shadow-lg shadow-brand-orange/20"
+            >
               Inquire Now
             </button>
           </div>
@@ -765,20 +783,20 @@ const Contact = () => {
                       />
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-stone-400">Subject</label>
-                    <select 
-                      name="subject"
-                      disabled={isSubmitting}
-                      value={formData.subject}
-                      onChange={(e) => setFormData({...formData, subject: e.target.value})}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-brand-orange transition-colors appearance-none disabled:opacity-50"
-                    >
-                      <option className="bg-brand-navy" value="Product Inquiry">Product Inquiry</option>
-                      <option className="bg-brand-navy" value="Distributorship">Distributorship</option>
-                      <option className="bg-brand-navy" value="Technical Support">Technical Support</option>
-                    </select>
-                  </div>
+                    <div className="space-y-2 relative">
+                      <label className="text-xs font-bold uppercase tracking-widest text-stone-400">Subject</label>
+                      <select 
+                        name="subject"
+                        disabled={isSubmitting}
+                        value={formData.subject}
+                        onChange={(e) => setFormData({...formData, subject: e.target.value})}
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-brand-orange transition-colors disabled:opacity-50"
+                      >
+                        <option className="bg-brand-navy" value="Product Inquiry">Product Inquiry</option>
+                        <option className="bg-brand-navy" value="Distributorship">Distributorship</option>
+                        <option className="bg-brand-navy" value="Technical Support">Technical Support</option>
+                      </select>
+                    </div>
                   <div className="space-y-2">
                     <label className="text-xs font-bold uppercase tracking-widest text-stone-400">Message</label>
                     <textarea 
@@ -846,7 +864,7 @@ const Footer = () => {
           </div>
 
           <div className="text-stone-500 text-sm">
-            © 2024 Tirupati Minerals. All rights reserved.
+            © {new Date().getFullYear()} Tirupati Minerals. All rights reserved.
           </div>
         </div>
       </div>
@@ -932,7 +950,7 @@ const Gallery = () => {
       </div>
 
       <div className="flex gap-8 animate-marquee whitespace-nowrap w-max">
-        {[...images, ...images, ...images].map((img, i) => (
+        {[...images, ...images].map((img, i) => (
           <motion.div 
             key={i} 
             whileHover={{ scale: 1.05 }}
